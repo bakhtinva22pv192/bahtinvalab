@@ -3,38 +3,32 @@ package tech.reliab.course.bahtinva.bank.entity;
 import tech.reliab.course.bahtinva.bank.entity.parentClasses.Person;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User extends Person {
     String job;
     double salary;
-    Bank bank;
-    CreditAccount creditAccount;
-    PaymentAccount paymentAccount;
+    List<Bank> banks = new ArrayList<>();
+    List<CreditAccount> creditAccounts = new ArrayList<>();
+    List<PaymentAccount> paymentAccounts = new ArrayList<>();
     double creditRating;
 
     public User() {}
 
     public User(Long id, String firstName, String lastName, LocalDate birthDate, String job,
-                double salary, Bank bank, CreditAccount creditAccount,
-                PaymentAccount paymentAccount, double creditRating) {
+                double salary, double creditRating) {
         super(id, firstName, lastName, birthDate);
         this.job = job;
         this.salary = salary;
-        this.bank = bank;
-        this.creditAccount = creditAccount;
-        this.paymentAccount = paymentAccount;
         this.creditRating = creditRating;
     }
 
     public User(Long id, String firstName, String lastName, String patronymic, LocalDate birthDate, String job,
-                double salary, Bank bank, CreditAccount creditAccount,
-                PaymentAccount paymentAccount, double creditRating) {
+                double salary, double creditRating) {
         super(id, firstName, lastName, patronymic, birthDate);
         this.job = job;
         this.salary = salary;
-        this.bank = bank;
-        this.creditAccount = creditAccount;
-        this.paymentAccount = paymentAccount;
         this.creditRating = creditRating;
     }
 
@@ -46,9 +40,7 @@ public class User extends Person {
         super.setBirthDate(user.getBirthDate());
         this.job = user.getJob();
         this.salary = user.getSalary();
-        this.bank = user.getBank();
-        this.creditAccount = user.getCreditAccount();
-        this.paymentAccount = user.getPaymentAccount();
+        this.banks = user.getBanks();
         this.creditRating = user.getCreditRating();
     }
 
@@ -68,28 +60,12 @@ public class User extends Person {
         this.salary = salary;
     }
 
-    public Bank getBank() {
-        return bank;
+    public List<Bank> getBanks() {
+        return banks;
     }
 
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
-
-    public CreditAccount getCreditAccount() {
-        return creditAccount;
-    }
-
-    public void setCreditAccount(CreditAccount creditAccount) {
-        this.creditAccount = creditAccount;
-    }
-
-    public PaymentAccount getPaymentAccount() {
-        return paymentAccount;
-    }
-
-    public void setPaymentAccount(PaymentAccount paymentAccount) {
-        this.paymentAccount = paymentAccount;
+    public void addBank(Bank bank) {
+        this.banks.add(bank);
     }
 
     public double getCreditRating() {
@@ -100,6 +76,26 @@ public class User extends Person {
         this.creditRating = creditRating;
     }
 
+    public void setBanks(List<Bank> banks) {
+        this.banks = banks;
+    }
+
+    public List<CreditAccount> getCreditAccounts() {
+        return creditAccounts;
+    }
+
+    public void setCreditAccounts(List<CreditAccount> creditAccounts) {
+        this.creditAccounts = creditAccounts;
+    }
+
+    public List<PaymentAccount> getPaymentAccounts() {
+        return paymentAccounts;
+    }
+
+    public void setPaymentAccounts(List<PaymentAccount> paymentAccounts) {
+        this.paymentAccounts = paymentAccounts;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -108,9 +104,7 @@ public class User extends Person {
                 ", birthDate=" + super.getBirthDate() +
                 ", job='" + job + '\'' +
                 ", salary=" + salary +
-                ", bank_id=" + bank.getId() +
-                ", creditAccountId=" + creditAccount.getId() +
-                ", paymentAccountId=" + paymentAccount.getId() +
+                ", banks=" + banks.stream().map(Bank::getName).toList() +
                 ", creditRating=" + creditRating +
                 '}';
     }
