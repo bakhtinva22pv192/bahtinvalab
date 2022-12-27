@@ -1,11 +1,41 @@
 package tech.reliab.course.bahtinva.bank.service;
 
 import tech.reliab.course.bahtinva.bank.entity.Bank;
+import tech.reliab.course.bahtinva.bank.entity.BankAtm;
 import tech.reliab.course.bahtinva.bank.entity.BankOffice;
 
+import java.util.List;
+
 public interface BankOfficeService {
+    /**
+     *
+     * @param name - имя офиса
+     * @param bank - банк офиса
+     * @param address - адрес офиса
+     * @param rent - стоимость аренды офиса
+     * @return - возвращает созданный объект офис
+     */
     BankOffice create(String name, Bank bank, String address, double rent);
-    BankOffice read();
-    void update(BankOffice bankOffice);
-    void delete(BankOffice bankOffice);
+
+    /**
+     * Добавляем банкомат в офис
+     * @param office - офис
+     * @param atm - банкомат
+     */
+    void addAtm(BankOffice office, BankAtm atm);
+
+    /**
+     * Удаляем банкомат в офиса
+     * @param office - офис
+     * @param atm - банкомат
+     */
+    void deleteAtm(BankOffice office, BankAtm atm);
+
+    /**
+     *
+     * @param office - офис
+     * @param sum - сумма кредита
+     * @return - возвращает список банкоматов, которые могут выдать данную сумму
+     */
+    List<BankAtm> getAtmsForLoans(BankOffice office, double sum);
 }
